@@ -84,7 +84,7 @@ class MazeAgent(object):
         return []
         
     def heuristic(self, node):
-        # VIVA LA MANHATTAN PROJECT
+        # MANHATTAN DISTANCE
         x1, y1 = node
         x2, y2 = self.get_goal()
         return abs(x1 - x2) + abs(y1 - y2)
