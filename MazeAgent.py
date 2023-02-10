@@ -56,7 +56,7 @@ class MazeAgent(object):
         # Configure the BFS with the starting data #
         self.__frontier_set = collections.deque() # FIFO Queue
         self.__frontier_set.append(curr_node) 
-        self.__explored_set[curr_node] = [] # HASH MAP -> [ KEY->(i,j), VALUE->[CUR.SOL] ] ; kind of comb. the ex. set with a soln. map, but hey efficiency
+        self.__explored_set[curr_node] = [] # HASH MAP -> [ KEY->(i,j), VALUE->[CUR.SOL] ] ; kind of comb. the ex. set with a soln. map
 
         while self.__frontier_set:
 
@@ -68,10 +68,10 @@ class MazeAgent(object):
 
                 if newRow in range(rows) and newCol in range(cols):
                     
-                    if self.__grid[newRow][newCol] == 3: # GOAL BLOCK RETURN BOI
+                    if self.__grid[newRow][newCol] == 3: # GOAL BLOCK RETURN
                         self.__explored_set[(newRow, newCol)] = self.__explored_set[(i, j)][:]
                         self.__explored_set[(newRow, newCol)].append(commands[index])
-                        soln = self.__explored_set[(newRow, newCol)][::-1] # reverse tha jawn, cuz thats how u parse it
+                        soln = self.__explored_set[(newRow, newCol)][::-1] # reverse the list, that is how it is parsed
 
                         return soln
 
@@ -111,7 +111,7 @@ class MazeAgent(object):
         # Configure the BFS with the starting data #
         self.__frontier_set = [] 
         heapq.heappush(self.__frontier_set, (0,curr_node)) # Priority queue, cough cough, a heap || Formated by (weighted heuristic, (i,j))
-        self.__explored_set[curr_node] = [] # HASH MAP -> [ KEY->(i,j), VALUE->[CUR.SOL] ] ; kind of comb. the ex. set with a soln. map, but hey efficiency
+        self.__explored_set[curr_node] = [] # HASH MAP -> [ KEY->(i,j), VALUE->[CUR.SOL] ] ; kind of comb. the ex. set with a soln. map
         
         while self.__frontier_set:
             score, point = heapq.heappop(self.__frontier_set)
@@ -126,7 +126,7 @@ class MazeAgent(object):
                     if self.__grid[newRow][newCol] == 3: # GOAL BLOCK RETURN BOI
                         self.__explored_set[(newRow, newCol)] = self.__explored_set[(i, j)]
                         self.__explored_set[(newRow, newCol)].append(commands[index])
-                        soln = self.__explored_set[(newRow, newCol)][::-1] # reverse tha jawn, cuz thats how u parse it
+                        soln = self.__explored_set[(newRow, newCol)][::-1] # reverse the list, that is how it is parsed
 
                         return soln
 
@@ -163,9 +163,9 @@ class MazeAgent(object):
         for i in range(rows):
             for j in range(cols):
                 if self.__grid[i][j] == 2:
-                    startNode = (i,j) # Found our starting node
+                    startNode = (i,j) # Found our starting node pos
                 elif self.__grid[i][j] == 3:
-                    endNode = (i,j) # Ladies and gentleman, we got em'
+                    endNode = (i,j) # Found our end node pos
                     self.__goal_state = endNode
         
         return self.__plan_path_breadth(startNode, endNode) if self.__path_alg == "bf" else self.__plan_path_astar(startNode, endNode) # Return the path for desired algorithm specified
